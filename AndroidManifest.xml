@@ -43,7 +43,7 @@
                     android:scheme="oauth" />
             </intent-filter>
         </activity>
-        <activity android:name="com.personal.apps.twitterdemo.MyTimeLineActivity"/>
+        <activity android:name="com.personal.apps.twitterdemo.MyTimeLineActivity" android:label="TimeLine" android:icon="@drawable/download"/>
         <activity android:name="com.personal.apps.twitterdemo.Compose"/>
     </application>
 

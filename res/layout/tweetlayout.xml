@@ -8,7 +8,7 @@
     <ImageView
             android:id="@+id/displayImage"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:src="@drawable/ic_launcher"/>
@@ -33,6 +33,7 @@
             android:layout_toRightOf="@+id/displayImage"
             android:gravity="bottom"
             android:textStyle="italic"
+            android:autoLink="web"
             android:textSize="10sp"
             />
 

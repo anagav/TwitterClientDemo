@@ -65,7 +65,7 @@ public class TwitterAdapter extends BaseAdapter {
         View v = convertView;
         if (v == null) {
             LayoutInflater vi = (LayoutInflater) _c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = vi.inflate(R.layout.list_item_message, null);
+            v = vi.inflate(R.layout.tweetlayout, null);
         }
 
         assert v != null;
@@ -73,9 +73,9 @@ public class TwitterAdapter extends BaseAdapter {
         TextView fromView = (TextView) v.findViewById(R.id.userName);
         //TextView subView = (TextView)v.findViewById(R.id.subject);
         TextView descView = (TextView) v.findViewById(R.id.tweet);
-        Linkify.addLinks(fromView, Linkify.ALL);
-        fromView.setLinksClickable(true);
-        fromView.setLinkTextColor(Color.BLUE);
+        Linkify.addLinks(descView, Linkify.ALL);
+        descView.setLinksClickable(true);
+        descView.setLinkTextColor(Color.BLUE);
         //TextView timeView = (TextView)v.findViewById(R.id.time);
 
         TwitterModel tweet = _data.get(position);
