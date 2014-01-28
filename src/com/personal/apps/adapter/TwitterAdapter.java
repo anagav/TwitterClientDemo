@@ -22,7 +22,7 @@ import java.util.ArrayList;
  */
 public class TwitterAdapter extends BaseAdapter {
 
-    private ArrayList<TwitterModel> _data;
+    private ArrayList<TwitterModel> _data = null;
     Context _c;
 
 
@@ -32,7 +32,10 @@ public class TwitterAdapter extends BaseAdapter {
     }
 
     public void setdata(String s) {
-        this._data = TwitterModel.gettweets(s);
+        if (this._data == null) {
+            _data = new ArrayList<TwitterModel>();
+        }
+        this._data.addAll(TwitterModel.gettweets(s));
         this.notifyDataSetChanged();
 
     }
@@ -93,7 +96,6 @@ public class TwitterAdapter extends BaseAdapter {
         //image.setImageResource(R.drawable.ic_launcher);
 
         fromView.setText(tweet.user.name);
-
 
 
         descView.setText(tweet.text);

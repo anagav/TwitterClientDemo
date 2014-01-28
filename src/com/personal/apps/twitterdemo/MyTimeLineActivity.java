@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.codepath.apps.restclienttemplate.R;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.personal.apps.adapter.TwitterAdapter;
+import com.personal.apps.listener.EndlessScrollListener;
 import com.personal.apps.model.TwitterModel;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -34,11 +35,42 @@ public class MyTimeLineActivity extends Activity {
 
         tweetlist.setAdapter(adapter);
 
-        TwitterClientApp.getRestClient().getHomeTimeLine(new JsonHttpResponseHandler() {
+        tweetlist.setOnScrollListener(new EndlessScrollListener() {
+            @Override
+            public void onLoadMore(final int page, int totalItemsCount) {
+                TwitterClientApp.getRestClient().getHomeTimeLine(page, new JsonHttpResponseHandler() {
+                    @Override
+                    public void onFailure(Throwable throwable, JSONArray jsonArray) {
+                        super.onFailure(throwable, jsonArray);
+                        System.out.println("Error:" + jsonArray);
+                        System.out.println("Error:" + throwable.toString());
+                    }
+
+                    @Override
+                    public void onSuccess(JSONArray jsonArray) {
+                        Toast.makeText(getBaseContext(),"loading more for page"+ page, Toast.LENGTH_SHORT).show();
+                        super.onSuccess(jsonArray);
+                        adapter.setdata(jsonArray.toString());
+                    }
+                });
+
+            }
+        });
+
+
+        TwitterClientApp.getRestClient().getHomeTimeLine(1,new JsonHttpResponseHandler() {
             @Override
             public void onFailure(Throwable throwable, JSONArray jsonArray) {
                 super.onFailure(throwable, jsonArray);
                 System.out.println("Error:" + jsonArray);
+                System.out.println("Error:" + throwable.toString());
+
+            }
+
+            @Override
+            public void onFailure(Throwable throwable, JSONObject jsonObject) {
+                super.onFailure(throwable, jsonObject);
+                System.out.println("Error:" + jsonObject);
                 System.out.println("Error:" + throwable.toString());
             }
 
@@ -48,6 +80,10 @@ public class MyTimeLineActivity extends Activity {
                 adapter.setdata(jsonArray.toString());
             }
         });
+
+
+
+
     }
 
 
@@ -85,4 +121,5 @@ public class MyTimeLineActivity extends Activity {
         });
 
     }
+
 }
